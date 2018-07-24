@@ -1,0 +1,11 @@
+h1 {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px; 
+}
+
+.plot {
+    border: 1px solid gray;
+    margin: 3px;
+    margin-bottom: 10px;
+}
