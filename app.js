@@ -33,57 +33,65 @@ function plot(catchmentName, data) {
     }
   }
 
-  let trace1 = {
-    x: data.time,
-    y: data.qpast,
-    name: 'Observed runoff',
-    type: 'scatter'
-  };
-
-  let trace2 = {
-    x: data.time,
-    y: data.qfuture,
-    name: 'Forecasted runoff',
-    type: 'scatter'
-  };
-  
-  let trace3 = {
+  let traceTair = {
     x: data.time,
     y: data.tair,
-    yaxis: 'y2',
     name: 'Air temperature',
     type: 'scatter'
   }
-
-  let trace4 = {
+  
+  let tracePrec = {
     x: data.time,
     y: data.prec,
-    yaxis: 'y3',
+    yaxis: 'y2',
     name: 'Precipitation',
-    type: 'scatter'
+    type: 'bar',
+    marker: {
+      color: 'blue',
+    },
+    opacity: 0.5
   }
   
-
-
+  let traceQobs = {
+    x: data.time,
+    y: data.qpast,
+    yaxis: 'y3',
+    name: 'Observed runoff',
+    type: 'scatter'
+  };
+  
+  let traceQsim = {
+    x: data.time,
+    y: data.qfuture,
+    yaxis: 'y3',
+    name: 'Forecasted runoff',
+    type: 'scatter'
+  };
 
   let layout = {
 
     height: "600",
     
+    xaxis: {
+      showgrid: true
+    },
+
     yaxis: {
-      domain: [0.45, 1.0],
-      title: "Runoff (m<sup>3</sup>/s)"
+      title: "Air temperature (°C)",
+      domain: [0, 0.45],
+      showgrid: false
     },
     
     yaxis2: {
-      domain: [0, 0.38],
-      title: "Air temperature (°C)"
+      title: 'Precipitation (mm/hr)',
+      overlaying: 'y',
+      side: 'right',
+      autorange: 'reversed'
     },
     
     yaxis3: {
-      title: 'Precipitation (mm/hr)',
-      overlaying: 'y2',
-      side: 'right'
+      domain: [0.5, 1.0],
+      title: "Runoff (m<sup>3</sup>/s)"
     },
     
     title: catchmentName,
@@ -96,7 +104,7 @@ function plot(catchmentName, data) {
 
   }
 
-  let traces = [trace1, trace2, trace3, trace4];
+  let traces = [traceQobs, traceQsim, traceTair, tracePrec];
   
   Plotly.newPlot(catchmentName, traces, layout);
   
