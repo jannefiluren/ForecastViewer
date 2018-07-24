@@ -8,7 +8,7 @@ function createDivs(data) {
   for (tmp in data) {
     html += `
     <div class="plot">
-    <div id="${tmp}"></div>
+    <div id="${tmp}" class="singlePlot"></div>
     </div>
     `;
     
@@ -118,4 +118,27 @@ fetch("data/output.json", {
 }).then(res => res.json())
   .then(data => createDivs(data))
   .catch(err => console.log(err));
+
+
+
+const selectStation = document.getElementById("selectStation");
+
+selectStation.addEventListener("keyup", () => {
+
+  let plots = document.querySelectorAll(".singlePlot");
+
+  let searchString = document.getElementById("selectStation").value;
+
+  plots.forEach((plot) => {
+
+    if (plot.getAttribute("id").indexOf(searchString) !== -1) {
+      plot.parentElement.style.display = "block";
+    } else {
+      plot.parentElement.style.display = "none";
+    }
+
+  })
+
+})
+
 
