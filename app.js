@@ -100,14 +100,18 @@ function plot(catchmentName, data) {
       size: 30
     },
 
-    paper_bgcolor: 'lightgray'
+    paper_bgcolor: '#e5e5e5'
 
   }
 
   let traces = [traceQobs, traceQsim, traceTair, tracePrec];
   
-  Plotly.newPlot(catchmentName, traces, layout);
+  console.time();
+
+  Plotly.newPlot(catchmentName, traces, layout, {displayModeBar: false});
   
+  console.timeEnd();
+
 }
 
 

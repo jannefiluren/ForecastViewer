@@ -1,27 +1,56 @@
+
+using Dates
 using JSON
 
-files = ["2.11-narsjo", "2.28-aulestad", "2.32-atnasjo", "2.142-knappom", "2.145-losna", "2.265-unsetaaa", "2.268-akslen", "2.279-kraakfoss"]
+# Read file
 
-data_all = Dict();
+f = open("data.txt")
 
-for file in files
-    
-    data = readdlm(file)
+lines = readlines(f)
 
-    data_all[file] = Dict("time" => DateTime.(data[:,1], data[:,2], data[:,3], data[:,4]),
-                          "prec" => data[:,5],
-                          "tair" => data[:,6],
-                          "qpast" => data[:,14],
-                          "qfuture" => data[:,15])
+close(f)
+
+# Collect data into nested dictonary
+
+dictparent = Dict()
+
+global station, dictchild
+
+for line in lines
+
+    if (ismatch(r"^:", line))
+        
+        station = replace(line, ":" => "")
+
+        dictchild = Dict(
+            "time" => [],
+            "prec" => [],
+            "tair" => [],
+            "qpast" => [],
+            "qfuture" => []
+        )
+
+    else
+
+        values = Meta.parse.(split(line))
+
+        push!(dictchild["time"], DateTime(values[1], values[2], values[3] ,values[4]))
+        push!(dictchild["prec"], values[5])
+        push!(dictchild["tair"], values[6])
+        push!(dictchild["qpast"], values[14])
+        push!(dictchild["qfuture"], values[15])
+        
+        dictparent[station] = dictchild
+
+    end
 
 end
 
-fid = open("output.json", "w")
+# Write to json
 
-JSON.print(fid, data_all)
+f = open("data.json", "w")
 
-close(fid)
+JSON.print(f, dictparent)
 
-
-
+close(f)
 
