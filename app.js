@@ -1,3 +1,8 @@
+function removeLoader() {
+  const preloader = document.querySelector(".preloader-wrapper");
+  preloader.classList.remove("active");
+}
+
 function createDivs(data) {
   const allPlots = document.querySelector("#allplots");
 
@@ -97,11 +102,7 @@ function plot(catchmentName, data) {
 
   let traces = [traceQobs, traceQsim, traceTair, tracePrec];
 
-  console.time();
-
   Plotly.newPlot(catchmentName, traces, layout, { displayModeBar: false });
-
-  console.timeEnd();
 }
 
 fetch("data/data.json", {
@@ -111,6 +112,7 @@ fetch("data/data.json", {
 })
   .then(res => res.json())
   .then(data => createDivs(data))
+  .then(() => removeLoader())
   .catch(err => console.log(err));
 
 const selectStation = document.getElementById("selectStation");
