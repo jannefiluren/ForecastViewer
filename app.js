@@ -1,10 +1,6 @@
-function removeLoader() {
-  const preloader = document.querySelector(".preloader-wrapper");
-  preloader.classList.remove("active");
-}
-
 function createDivs(data) {
   const allPlots = document.querySelector("#allplots");
+  const preloader = document.querySelector(".preloader-background");
 
   let html = [];
   for (tmp in data) {
@@ -19,6 +15,8 @@ function createDivs(data) {
   for (tmp in data) {
     plot(tmp, data[tmp]);
   }
+
+  preloader.remove();
 }
 
 function plot(catchmentName, data) {
@@ -112,7 +110,6 @@ fetch("data/data.json", {
 })
   .then(res => res.json())
   .then(data => createDivs(data))
-  .then(() => removeLoader())
   .catch(err => console.log(err));
 
 const selectStation = document.getElementById("selectStation");
