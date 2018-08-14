@@ -115,7 +115,7 @@ function plot(catchmentName, data) {
 }
 
 
-fetch("data/output.json", {
+fetch("data/data.json", {
   header: {
     "Content-type": "application/json"
   }

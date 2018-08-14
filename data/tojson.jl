@@ -1,6 +1,7 @@
 
 using Dates
 using JSON
+using DataStructures
 
 # Read file
 
@@ -12,7 +13,7 @@ close(f)
 
 # Collect data into nested dictonary
 
-dictparent = Dict()
+dictparent = OrderedDict()
 
 global station, dictchild
 
@@ -22,7 +23,7 @@ for line in lines
         
         station = replace(line, ":" => "")
 
-        dictchild = Dict(
+        dictchild = OrderedDict(
             "time" => [],
             "prec" => [],
             "tair" => [],
