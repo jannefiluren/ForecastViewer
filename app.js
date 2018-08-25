@@ -81,7 +81,8 @@ function plot(catchmentName, data) {
       title: "Precipitation (mm/hr)",
       overlaying: "y",
       side: "right",
-      autorange: "reversed"
+      autorange: "reversed",
+      rangemode: "nonnegative"
     },
 
     yaxis3: {
