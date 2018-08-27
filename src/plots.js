@@ -1,25 +1,6 @@
-function createDivs(data) {
-  const allPlots = document.querySelector("#allplots");
-  const preloader = document.querySelector(".preloader-background");
 
-  let html = [];
-  for (tmp in data) {
-    html += `
-    <div class="plot">
-    <div id="${tmp}" class="singlePlot"></div>
-    </div>
-    `;
-  }
-  allPlots.innerHTML = html;
+export function plot(catchmentName, data) {
 
-  for (tmp in data) {
-    plot(tmp, data[tmp]);
-  }
-
-  preloader.remove();
-}
-
-function plot(catchmentName, data) {
   for (let i = 0; i < data.qpast.length; i++) {
     if (data.qpast[i] === -9999) {
       data.qpast[i] = NaN;
@@ -102,29 +83,5 @@ function plot(catchmentName, data) {
   let traces = [traceQobs, traceQsim, traceTair, tracePrec];
 
   Plotly.newPlot(catchmentName, traces, layout, { displayModeBar: false });
+
 }
-
-fetch("data/data.json", {
-  header: {
-    "Content-type": "application/json"
-  }
-})
-  .then(res => res.json())
-  .then(data => createDivs(data))
-  .catch(err => console.log(err));
-
-const selectStation = document.getElementById("selectStation");
-
-selectStation.addEventListener("keyup", () => {
-  let plots = document.querySelectorAll(".singlePlot");
-
-  let searchString = document.getElementById("selectStation").value;
-
-  plots.forEach(plot => {
-    if (plot.getAttribute("id").indexOf(searchString) !== -1) {
-      plot.parentElement.style.display = "block";
-    } else {
-      plot.parentElement.style.display = "none";
-    }
-  });
-});
