@@ -18,3 +18,11 @@
   right: 0;
   bottom: 0;
 }
+
+input {
+  color:white;
+}
+
+input::placeholder{
+  color:white;
+}
