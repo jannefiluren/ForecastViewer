@@ -1,28 +1,9 @@
-import { plot } from './plots.js';
 
-function createDivs(data) {
-  const allPlots = document.querySelector("#allplots");
-  const preloader = document.querySelector(".preloader-background");
+import { Plot } from './plots.js';
+import { UI } from './ui.js';
 
-  var tmp;
-
-  let html = [];
-  for (tmp in data) {
-    html += `
-    <div class="plot">
-    <div id="${tmp}" class="singlePlot"></div>
-    </div>
-    `;
-  }
-  allPlots.innerHTML = html;
-
-  for (tmp in data) {
-    plot(tmp, data[tmp]);
-  }
-
-  preloader.remove();
-}
-
+const plot = new Plot();
+const ui = new UI();
 
 fetch("data/data_short.json", {
   header: {
@@ -30,22 +11,9 @@ fetch("data/data_short.json", {
   }
 })
   .then(res => res.json())
-  .then(data => createDivs(data))
+  .then(data => ui.fillPlotDiv(data))
+  .then(data => plot.plotAll(data))
+  .then(() => ui.closePreloader())
   .catch(err => console.log(err));
 
-
-const selectStation = document.getElementById("selectStation");
-
-selectStation.addEventListener("keyup", () => {
-  let plots = document.querySelectorAll(".singlePlot");
-
-  let searchString = document.getElementById("selectStation").value;
-
-  plots.forEach(plot => {
-    if (plot.getAttribute("id").indexOf(searchString) !== -1) {
-      plot.parentElement.style.display = "block";
-    } else {
-      plot.parentElement.style.display = "none";
-    }
-  });
-});
+ui.searchStations();
