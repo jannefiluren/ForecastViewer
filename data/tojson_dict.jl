@@ -2,6 +2,14 @@
 using Dates
 using JSON
 using DataStructures
+using CSV
+using DataFrames
+
+# Read metadata
+
+dfmeta = CSV.read("metadata.csv", delim = ";", decimal = ',')
+
+regine_main = @. string(dfmeta[:regine_area]) * "." * string(dfmeta[:main_no])
 
 # Read file
 
@@ -15,7 +23,7 @@ close(f)
 
 dictparent = OrderedDict()
 
-global station, dictchild
+global station, dictchild, irow
 
 for line in lines
 
@@ -23,12 +31,17 @@ for line in lines
         
         station = replace(line, ":" => "")
 
+        irow = findall(regine_main .== split(station, " ")[1])[1]
+
         dictchild = OrderedDict(
             "time" => [],
             "prec" => [],
             "tair" => [],
             "qpast" => [],
-            "qfuture" => []
+            "qfuture" => [],
+            "lat" => missing,
+            "lon" => missing,
+            "name" => missing
         )
 
     else
@@ -40,7 +53,11 @@ for line in lines
         push!(dictchild["tair"], values[6])
         push!(dictchild["qpast"], values[14])
         push!(dictchild["qfuture"], values[15])
-        
+
+        dictchild["lat"] = dfmeta[:latitude][irow]
+        dictchild["lon"] = dfmeta[:longitude][irow]
+        dictchild["name"] = station
+
         dictparent[station] = dictchild
 
     end
@@ -49,7 +66,7 @@ end
 
 # Write to json
 
-f = open("data.json", "w")
+f = open("data_test.json", "w")
 
 JSON.print(f, dictparent)
 
