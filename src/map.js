@@ -9,7 +9,7 @@ export class Map {
     const lonMin = 5;
     const lonMax = 30;
 
-    const map = L.map('mapid');
+    const map = L.map('mapid', { zoomControl: false });
 
     map.fitBounds([
       [latMin, lonMin],
