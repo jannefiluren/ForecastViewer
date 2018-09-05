@@ -41,7 +41,8 @@ for line in lines
             "qfuture" => [],
             "lat" => missing,
             "lon" => missing,
-            "name" => missing
+            "name" => missing,
+            "color" => missing
         )
 
     else
@@ -57,6 +58,7 @@ for line in lines
         dictchild["lat"] = dfmeta[:latitude][irow]
         dictchild["lon"] = dfmeta[:longitude][irow]
         dictchild["name"] = station
+        dictchild["color"] = rand(["green", "yellow", "red"])
 
         dictparent[station] = dictchild
 
@@ -74,7 +76,7 @@ end
 
 # Write to json
 
-f = open("data_test.json", "w")
+f = open("data_array.json", "w")
 
 JSON.print(f, final)
 

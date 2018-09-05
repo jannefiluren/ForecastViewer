@@ -125,9 +125,11 @@ export class Map {
 
     data.forEach(item => {
 
+      console.log(item.color)
+
       let marker = new L.circle([item.lat, item.lon], {
-        color: "green",
-        fillColor: "green",
+        color: item.color,
+        fillColor: item.color,
         fillOpacity: 0.5,
         radius: 5000
       })
