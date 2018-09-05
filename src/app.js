@@ -5,7 +5,7 @@ import { UI } from './ui.js';
 const plot = new Plot();
 const ui = new UI();
 
-fetch("data/data_short.json", {
+fetch("data/data_array.json", {
   header: {
     "Content-type": "application/json"
   }

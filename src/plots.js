@@ -3,10 +3,9 @@ export class Plot {
 
   plotAll(data) {
 
-    let tmp;
-    for (tmp in data) {
-      this.plotHbv(tmp, data[tmp]);
-    }
+    data.forEach(item => {
+      this.plotHbv(item.name, item);
+    })
 
   }
 

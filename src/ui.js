@@ -9,21 +9,17 @@ export class UI {
 
   fillPlotDiv(data) {
 
-    var tmp;
-
     let html = [];
-    for (tmp in data) {
+    data.forEach(item => {
       html += `
       <div class="plot">
-      <div id="${tmp}" class="singlePlot"></div>
+      <div id="${item.name}" class="singlePlot"></div>
       </div>
       `;
-    }
-
+    })
     this.allPlots.innerHTML = html;
 
     return data;
-
   }
 
   closePreloader() {
