@@ -87,13 +87,17 @@ export class Map {
       },
 
       xaxis: {
-        showgrid: true
+        showgrid: true,
+        gridcolor: '#bdbdbd',
+        gridwidth: 1
       },
 
       yaxis: {
         title: "Air temperature (°C)",
         domain: [0, 0.45],
-        showgrid: false
+        showgrid: true,
+        gridcolor: '#bdbdbd',
+        gridwidth: 1
       },
 
       yaxis2: {
@@ -101,12 +105,15 @@ export class Map {
         overlaying: "y",
         side: "right",
         autorange: "reversed",
-        rangemode: "nonnegative"
+        rangemode: "nonnegative",
+        showgrid: false
       },
 
       yaxis3: {
         domain: [0.5, 1.0],
-        title: "Runoff (m<sup>3</sup>/s)"
+        title: "Runoff (m<sup>3</sup>/s)",
+        gridcolor: '#bdbdbd',
+        gridwidth: 1
       },
 
       paper_bgcolor: "#a2a8b2"
