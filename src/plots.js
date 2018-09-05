@@ -87,7 +87,7 @@ export class Plot {
         size: 30
       },
 
-      paper_bgcolor: "#e5e5e5"
+      paper_bgcolor: "#a2a8b2"
     };
 
     let traces = [traceQobs, traceQsim, traceTair, tracePrec];

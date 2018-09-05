@@ -109,7 +109,7 @@ export class Map {
         title: "Runoff (m<sup>3</sup>/s)"
       },
 
-      paper_bgcolor: "#e5e5e5"
+      paper_bgcolor: "#a2a8b2"
 
     };
 
@@ -132,7 +132,7 @@ export class Map {
         radius: 5000
       })
 
-      marker.bindPopup(`<div class="plot" id=\"${item.name}\"></div>`, {
+      marker.bindPopup(`<div class="plotmap" id=\"${item.name}\"></div>`, {
         maxWidth: 1000
       })
 
